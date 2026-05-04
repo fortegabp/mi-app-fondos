@@ -40,7 +40,8 @@ except Exception as e:
 
 # 4. Configurar la Inteligencia Artificial
 genai.configure(api_key=api_key)
-modelo = genai.GenerativeModel('gemini-3.1-pro')
+# Nombre técnico exigido por el servidor de la API
+modelo = genai.GenerativeModel('gemini-1.5-pro') 
 
 # Convertimos tu Excel a texto para que la IA lo lea
 contexto_fondos = df_fondos.to_string(index=False)
@@ -85,5 +86,5 @@ if pregunta := st.chat_input("Escribe el perfil de tu cliente o el fondo que bus
                 respuesta = modelo.generate_content(consulta_completa)
                 st.markdown(respuesta.text)
                 st.session_state.mensajes.append({"rol": "assistant", "texto": respuesta.text})
-           except Exception as e:
+            except Exception as e:
                 st.error(f"Fallo exacto de la IA: {e}")
