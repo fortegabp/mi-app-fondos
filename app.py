@@ -41,7 +41,7 @@ except Exception as e:
 # 4. Configurar la Inteligencia Artificial
 genai.configure(api_key=api_key)
 # Nombre técnico exigido por el servidor de la API
-modelo = genai.GenerativeModel('gemini-1.5-pro') 
+modelo = genai.GenerativeModel('gemini-3-flash-preview') 
 
 # Convertimos tu Excel a texto para que la IA lo lea
 contexto_fondos = df_fondos.to_string(index=False)
