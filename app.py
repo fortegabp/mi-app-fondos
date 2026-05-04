@@ -36,7 +36,7 @@ except Exception as e:
 
 # 4. Configurar la IA
 genai.configure(api_key=api_key)
-modelo = genai.GenerativeModel('gemini-3.1-pro') # O gemini-1.5-pro-latest si el 3.1 no está activo aún
+modelo = genai.GenerativeModel('gemini-3-flash-preview') # O gemini-1.5-pro-latest si el 3.1 no está activo aún
 
 # 5. Crear las dos Pestañas de la Aplicación
 tab1, tab2 = st.tabs(["💬 Asesor IA", "📥 Extractor Masivo (Fundinfo)"])
