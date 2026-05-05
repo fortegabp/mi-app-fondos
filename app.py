@@ -99,20 +99,18 @@ with tab2:
                 barra.progress((i + 1) / len(isins))
             
             prompt_extraccion = f"""
-            Convierte estos datos JSON en una tabla separada SÓLO por punto y coma (;).
-            Columnas obligatorias en este orden exacto:
-            ISIN; Nombre; Gestora; Divisa; Politica; Clase Activo; Liquidez; Liquidacion; TER; Com.Exito; Com.Entrada; SRI; Horizonte; Volatilidad; YTD; 1A; 3A; 5A; Art.SFDR; PAI; Geo Top3; Sec Top3; Top10; Filosofia
+            Analiza este JSON y devuelve una UNICA FILA separada por ";" con estos 38 campos en este orden exacto:
+            ISIN; Nombre del Fondo; Gestora; Divisa Base; Politica Distribucion; Categoria EFAMA; Hedge Fund Strategy; Benchmark; Riesgo (SRI 1-7); Volatilidad Anualizada 3A; Sharpe 3A; Alpha 3A; Beta 3A; Tracking Error 3A; Max Drawdown; Rentabilidad YTD %; Rentabilidad 1 Anio %; Rentabilidad 3 Anios %; Rentabilidad 5 Anios %; Cuartil 3A; Geografias Top 3; Sectores Top 3; Top 10 Posiciones; Modified Duration; Yield to Maturity; Articulo SFDR; Considera PAI; Carbon Intensity Scope 1&2; Gastos Corrientes (TER %); Comision Exito %; Comision Entrada %; Liquidez; Liquidacion (Dias); Minima Inversion Inicial; Is RDR Compliant; Filosofia de Inversion; Sesgo del Gestor; Comentario Quality Funds
             
             Datos:
             {datos_json_acumulados}
             
-            Reglas: Sin texto adicional. Formato numérico español (1,50%). Si falta algo, deja el espacio vacío entre los punto y coma. No pongas cabecera.
+            Reglas críticas: 
+            1. Devuelve SOLO una línea con los datos separados por punto y coma (;). 
+            2. NO incluyas la cabecera. 
+            3. Usa formato numérico español (comas para decimales, ej: 1,50). 
+            4. Si falta un dato, pon 'null' (pero mantén siempre el punto y coma para no descuadrar las 38 columnas).
             """
-            try:
-                res_ia = modelo.generate_content(prompt_extraccion)
-                st.code(res_ia.text, language="csv")
-            except Exception as e:
-                st.error(f"Error: {e}")
 
 # ==========================================
 # PESTAÑA 3: ARQUITECTURA (ANÁLISIS PROFUNDO)
