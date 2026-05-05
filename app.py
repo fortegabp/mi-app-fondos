@@ -98,18 +98,17 @@ with tab2:
                     pass
                 barra.progress((i + 1) / len(isins))
             
-            prompt_extraccion = f"""
-            Analiza este JSON y devuelve una UNICA FILA separada por ";" con estos 38 campos en este orden exacto:
-            ISIN; Nombre del Fondo; Gestora; Divisa Base; Politica Distribucion; Categoria EFAMA; Hedge Fund Strategy; Benchmark; Riesgo (SRI 1-7); Volatilidad Anualizada 3A; Sharpe 3A; Alpha 3A; Beta 3A; Tracking Error 3A; Max Drawdown; Rentabilidad YTD %; Rentabilidad 1 Anio %; Rentabilidad 3 Anios %; Rentabilidad 5 Anios %; Cuartil 3A; Geografias Top 3; Sectores Top 3; Top 10 Posiciones; Modified Duration; Yield to Maturity; Articulo SFDR; Considera PAI; Carbon Intensity Scope 1&2; Gastos Corrientes (TER %); Comision Exito %; Comision Entrada %; Liquidez; Liquidacion (Dias); Minima Inversion Inicial; Is RDR Compliant; Filosofia de Inversion; Sesgo del Gestor; Comentario Quality Funds
+           prompt_extraccion = f"""
+            Actúa como un parser de datos. Lee este JSON y extrae los valores correspondientes a los siguientes códigos/conceptos. 
+            Devuelve ÚNICAMENTE UNA FILA de texto separada por punto y coma (;), respetando ESTE ORDEN EXACTO:[OFST020000]; [OFST010110]; [OFST001020];[OFST010410]; [OFST020400];[OFST350100]; [OFST010230]; [OFST023200];[OFEP010900]; [OFEP060200]; Sharpe 3A; Alpha 3A; Beta 3A; Tracking Error 3A; Max Drawdown; Rentabilidad YTD; Rentabilidad 1A; Rentabilidad 3A; Rentabilidad 5A; Cuartil 3A; [OFRE000520];[OFRE000560]; [OFRE000500];[OFPH000465]; [OFPH000485]; [OFEE200400];[OFEE201000]; [OFST820110];[OFST452200]; [OFST451028]; [OFST451305];[OFST020300]; [OFST410700];[OFST400230]; [OFST020600];[OFST010300]; Sesgo del Gestor; Comentario Quality Funds
             
-            Datos:
+            Datos en crudo:
             {datos_json_acumulados}
             
-            Reglas críticas: 
-            1. Devuelve SOLO una línea con los datos separados por punto y coma (;). 
-            2. NO incluyas la cabecera. 
-            3. Usa formato numérico español (comas para decimales, ej: 1,50). 
-            4. Si falta un dato, pon 'null' (pero mantén siempre el punto y coma para no descuadrar las 38 columnas).
+            Reglas: 
+            1. Formato español (comas para decimales, sin símbolo %). 
+            2. Para los datos que no tengan código OF-ID oficial (como el Sharpe o Alpha), búscalo en el JSON bajo el nombre que le dé Fundinfo.
+            3. Si un dato no existe en el JSON, escribe 'null' (manteniendo el punto y coma).
             """
 
 # ==========================================
